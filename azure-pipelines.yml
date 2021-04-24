@@ -27,14 +27,15 @@ stages:
         dockerfile: 'Dockerfile'
         tags: |
           $(tag)
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(build.artifactstagingdirectory)'
-    Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(build.artifactstagingdirectory)'
+        Contents: '**'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+
